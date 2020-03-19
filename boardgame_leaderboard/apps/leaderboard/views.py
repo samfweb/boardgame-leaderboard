@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+# Test games while I work our CSS
 games = [
     {
         'name': '7 Wonders Duel',

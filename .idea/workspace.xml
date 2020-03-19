@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="93f8b797-6b15-463c-a364-e8721325b028" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/boardgame_app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/boardgame_app/asgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/boardgame_app/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/boardgame_app/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/boardgame_app/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/leaderboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/apps/leaderboard/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardgame_app/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardgame_leaderboard/manage.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1Z9sH6kHFshvkjkBegfZY2VA4aJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/boardgame_leaderboard/apps" />
+      <recent name="$PROJECT_DIR$/leaderboard_django/apps" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93f8b797-6b15-463c-a364-e8721325b028" name="Default Changelist" comment="" />
+      <created>1584262553880</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584262553880</updated>
+      <workItem from="1584262556598" duration="15097000" />
+      <workItem from="1584400625320" duration="182000" />
+      <workItem from="1584406536372" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="695" y="337" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584399325425">
+      <screen x="72" y="0" width="1848" height="1080" />
+    </state>
+    <state x="695" y="337" key="#com.intellij.fileTypes.FileTypeChooser/72.0.1848.1080@72.0.1848.1080" timestamp="1584399325425" />
+    <state x="651" y="367" key="com.intellij.ide.util.TipDialog" timestamp="1584406535918">
+      <screen x="72" y="0" width="1848" height="1080" />
+    </state>
+    <state x="651" y="367" key="com.intellij.ide.util.TipDialog/72.0.1848.1080/1920.0.1920.1080@72.0.1848.1080" timestamp="1584406535918" />
+    <state x="651" y="367" key="com.intellij.ide.util.TipDialog/72.0.1848.1080@72.0.1848.1080" timestamp="1584400708119" />
+  </component>
+</project>
