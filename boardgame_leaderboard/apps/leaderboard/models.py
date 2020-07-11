@@ -16,6 +16,6 @@ class Player(models.Model):
 
 
 class Game(models.Model):
-    boardgame = models.ForeignKey(Boardgame, on_delete=models.CASCADE)
+    boardgame = models.ForeignKey(Boardgame, related_name='%(class)s_boardgame', on_delete=models.CASCADE)
     players = models.ManyToManyField(Player)
-    winner = models.ForeignKey(Player, on_delete=models.CASCADE)
+    winner = models.ForeignKey(Player, related_name='%(class)s_winner', on_delete=models.CASCADE)
