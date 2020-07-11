@@ -1,24 +1,21 @@
 from django.db import models
-from django.db import connection
 
-def get(table, *args):
-    col_names = []
-    for arg in args:
-        col_names += arg
-    if col_names:
-        sql_select = ' '.join(col_names)
-    else:
-        sql_select = '*'
-    
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT %s FROM %s;', [sql_select, table])
-        rows = dictfetchall(cursor)
-        return rows
-    
-def dictfetchall(cursor):
-    "Return all rows from a cursor as a dict"
-    columns = [col[0] for col in cursor.description]
-    return [
-        dict(zip(columns, row))
-        for row in cursor.fetchall()
-    ]       
+class Boardgame(models.Model):
+    GAME_GENRES = (
+        ('strategy', 'Strategy'),
+        ('deckbuilding', 'Deckbuilding'),
+        ('rpg', 'RPG')
+    )
+    name = models.CharField(max_length=100)
+    genre = models.CharField(max_length=20, choices=GAME_GENRES)
+    max_players = models.IntegerField()
+
+
+class Player(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class Game(models.Model):
+    boardgame = models.ForeignKey(Boardgame, on_delete=models.CASCADE)
+    players = models.ManyToManyField(Player)
+    winner = models.ForeignKey(Player, on_delete=models.CASCADE)

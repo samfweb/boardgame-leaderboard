@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')f^c8n3avn*l1i#n7d%_u79@e+qtrlo(phqzi$&0f*4**z5jdf'
+SECRET_KEY = 'ez*!oop&wiomq!w)skgh8qm5(*)k6s)$#@8^fcxmro_=a65l+^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,18 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'apps.leaderboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
+    'apps.leaderboard'
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,9 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
