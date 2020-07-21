@@ -1,14 +1,22 @@
 from django.db import models
-from django.utils import timezone 
+from django.utils import timezone
+import random 
 
-
-class Boardgame(models.Model):
-    GAME_GENRES = (
+GAME_GENRES = (
         ('strategy', 'Strategy'),
         ('deckbuilding', 'Deckbuilding'),
         ('rpg', 'RPG'),
         ('coop', 'Co-op')
     )
+
+def get_random_genre():
+    """
+    Gets a random genre from the list ... may need to create model for these
+    """
+    return random.choice(GAME_GENRES)[0]
+
+class Boardgame(models.Model):
+    
     name = models.CharField(max_length=100)
     genre = models.CharField(max_length=20, choices=GAME_GENRES)
     max_players = models.IntegerField()
