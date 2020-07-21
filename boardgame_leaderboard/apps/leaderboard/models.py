@@ -25,7 +25,7 @@ class Player(models.Model):
     def __str__(self):
         return self.name
 
-# Note for later: PlayerSet Manager needs to be used for any table-wide operations    
+# Note for later: a PlayerSet Manager needs to be created for any table-wide operations    
 class PlayerSet(models.Model):
     name = models.CharField(max_length=100, default='New PlayerSet')
     player1 = models.ForeignKey(Player, related_name='%(class)s_p1', on_delete=models.PROTECT)
@@ -55,7 +55,7 @@ class PlayerSet(models.Model):
 
     def __str__(self):
         """ String is of form: 
-        Name: player1 player2...playern 
+        PlayerSet Name: player1 player2...playern 
         """
         str_rep = self.name + ":"
         for player_name in self.get_players_names_in_set():

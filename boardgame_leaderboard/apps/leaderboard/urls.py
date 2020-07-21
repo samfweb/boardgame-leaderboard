@@ -1,10 +1,14 @@
-from django.urls import path
+from django.urls import path, re_path, include
 from . import views
+from rest_framework.routers import DefaultRouter
 
+# Creates a router to automatically generate url patterns
+router = DefaultRouter()
+router.register(r'boardgames', views.BoardgameViewSet, 'boardgame')
+router.register(r'players', views.PlayerViewSet, 'player')
+router.register(r'playersets', views.PlayerSetViewSet, 'playerset')
+router.register(r'games', views.GameViewSet, 'game')
 
 urlpatterns = [
-    path('api/leaderboard/boardgames', views.BoardgameListCreate.as_view() ),
-    path('api/leaderboard/players', views.PlayerListCreate.as_view() ),
-    path('api/leaderboard/playersets', views.PlayerSetListCreate.as_view() ),
-    path('api/leaderboard/games', views.GameListCreate.as_view() ),
+    path('api/leaderboard/', include((router.urls, 'leaderboard'), namespace='api')),
 ]

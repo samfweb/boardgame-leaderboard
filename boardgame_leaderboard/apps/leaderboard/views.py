@@ -4,21 +4,21 @@
 from django.shortcuts import render
 from .models import Boardgame, Player, PlayerSet, Game
 from .serializers import BoardgameSerializer, PlayerSerializer, PlayerSetSerializer, GameSerializer
-from rest_framework import generics
+from rest_framework import viewsets
 
-class BoardgameListCreate(generics.ListCreateAPIView):
+class BoardgameViewSet(viewsets.ModelViewSet):
     queryset = Boardgame.objects.all()
     serializer_class = BoardgameSerializer
 
-class PlayerListCreate(generics.ListCreateAPIView):
+class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
-class PlayerSetListCreate(generics.ListCreateAPIView):
+class PlayerSetViewSet(viewsets.ModelViewSet):
     queryset = PlayerSet.objects.all()
     serializer_class = PlayerSetSerializer
 
-class GameListCreate(generics.ListCreateAPIView):
+class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     
