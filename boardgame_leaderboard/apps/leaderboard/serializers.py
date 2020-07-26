@@ -31,6 +31,21 @@ class PlayerSetSerializer(serializers.ModelSerializer):
             'player9',
             'player10',)
 
+    def validate(self, data):
+        """
+        Check that all players are unique
+        """
+        players = set()
+        for key, value in data.items():
+            if 'player' in key and value != None:
+                # Check if the player has already been encountered
+                if value in players:
+                    raise serializers.ValidationError("Player " + str(value) + " is already in the set.")
+                # If not, add it to the set
+                players.add(value)
+        return data
+
+
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game

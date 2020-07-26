@@ -21,7 +21,6 @@ class Boardgame(models.Model):
         ('coop', 'Co-op')
     )
     
-
     name = models.CharField(max_length=100)
     genre = models.CharField(max_length=20, choices=GAME_GENRES)
     max_players = models.IntegerField()
@@ -36,7 +35,7 @@ class Player(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return str(self.id) + self.name
+        return "ID:" + str(self.id) + " " + self.name
 
 # Note for later: a PlayerSet Manager needs to be created for any table-wide operations    
 class PlayerSet(models.Model):
@@ -87,10 +86,6 @@ class PlayerSet(models.Model):
         return str_rep
 
 class Game(models.Model):
-
-    WINNER_SET          = 0
-    NOT_IN_PLAYER_SET   = -1
-    PLAYER_DOESNT_EXIST = -2
 
     boardgame = models.ForeignKey(Boardgame, related_name='%(class)s_boardgame', on_delete=models.PROTECT)
     player_set = models.ForeignKey(PlayerSet, related_name='%(class)s_playerset', on_delete=models.PROTECT, null=True)
