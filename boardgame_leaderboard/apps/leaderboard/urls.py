@@ -11,4 +11,5 @@ router.register(r'games', views.GameViewSet, 'game')
 
 urlpatterns = [
     path('api/leaderboard/', include((router.urls, 'leaderboard'), namespace='api')),
+    path('', views.test_redirect),
 ]

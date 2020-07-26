@@ -36,7 +36,7 @@ class Player(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.name
+        return str(self.id) + self.name
 
 # Note for later: a PlayerSet Manager needs to be created for any table-wide operations    
 class PlayerSet(models.Model):
@@ -53,35 +53,46 @@ class PlayerSet(models.Model):
     player10 = models.ForeignKey(Player, related_name='%(class)s_p10', on_delete=models.PROTECT, null='True')
     created_at = models.DateTimeField(default=timezone.now)
 
-    def get_players_in_set(self):
+
+    def get_players_in_set(self, keyword='default'):
         """ Gets a list of all (player#, player_id) tuples in the PlayerSet """
-        return [(field.name, field.value_to_string(self)) \
+        # Gets a list of all (player#, player_id) tuples in the PlayerSet
+        player_tuples = [(field.name, field.value_to_string(self)) \
             for field in PlayerSet._meta.fields if 'player' in field.name]
 
-    def get_players_names_in_set(self):
-        """ Gets a list of all Player.names in the PlayerSet """
-        players_names = []
-        for player in self.get_players_in_set():
-            if player[1] != 'None':
-                players_names.append(" " + str(Player.objects.get(id=player[1])))
-        return players_names
+        if keyword != 'names' and keyword != 'ids':
+            return player_tuples
+
+        # Return a list of either names or ids
+        else:
+            players_list = []
+            for (player_number, player_id) in player_tuples:
+                if player_id != 'None':
+                    # Return a list of all names
+                    if keyword == 'names':
+                        players_list.append(" " + (Player.objects.get(id=player_id).name))
+                    # Return a list of all ids
+                    else:
+                        players_list.append(player_id)
+        return players_list
 
     def __str__(self):
-        """ String is of form: 
+        """ 
+        String is of form: 
         PlayerSet Name: player1 player2...playern 
         """
         str_rep = self.name + ":"
-        for player_name in self.get_players_names_in_set():
+        for player_name in self.get_players_in_set(keyword='names'):
             str_rep += " " + player_name
         return str_rep
 
 class Game(models.Model):
+
+    WINNER_SET          = 0
+    NOT_IN_PLAYER_SET   = -1
+    PLAYER_DOESNT_EXIST = -2
+
     boardgame = models.ForeignKey(Boardgame, related_name='%(class)s_boardgame', on_delete=models.PROTECT)
     player_set = models.ForeignKey(PlayerSet, related_name='%(class)s_playerset', on_delete=models.PROTECT, null=True)
     created_at = models.DateTimeField(default=timezone.now)
-
-    # Only set winner after creation
     winner = models.ForeignKey(Player, related_name='%(class)s_winner', on_delete=models.PROTECT, null=True)
-    
-    def __str__(self):
-        return (self.boardgame + ", " + self.date + ", Winner:" + self.winner)
