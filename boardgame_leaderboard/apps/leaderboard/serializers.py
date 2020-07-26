@@ -17,6 +17,7 @@ class PlayerSetSerializer(serializers.ModelSerializer):
         model = PlayerSet
         fields = ( 
             'id',
+            'name',
             'player1', 
             'player2',
             'player3',

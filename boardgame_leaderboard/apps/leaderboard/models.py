@@ -2,21 +2,26 @@ from django.db import models
 from django.utils import timezone
 import random 
 
-GAME_GENRES = (
+
+
+
+def get_random_genre():
+    """
+    Gets a random genre from the list
+    """
+    return random.choice(Boardgame.GAME_GENRES)[0]
+
+class Boardgame(models.Model):
+
+    # May need to create a model for these in later versions
+    GAME_GENRES = (
         ('strategy', 'Strategy'),
         ('deckbuilding', 'Deckbuilding'),
         ('rpg', 'RPG'),
         ('coop', 'Co-op')
     )
-
-def get_random_genre():
-    """
-    Gets a random genre from the list ... may need to create model for these
-    """
-    return random.choice(GAME_GENRES)[0]
-
-class Boardgame(models.Model):
     
+
     name = models.CharField(max_length=100)
     genre = models.CharField(max_length=20, choices=GAME_GENRES)
     max_players = models.IntegerField()
@@ -36,15 +41,15 @@ class Player(models.Model):
 # Note for later: a PlayerSet Manager needs to be created for any table-wide operations    
 class PlayerSet(models.Model):
     name = models.CharField(max_length=100, default='New PlayerSet')
-    player1 = models.ForeignKey(Player, related_name='%(class)s_p1', on_delete=models.PROTECT)
-    player2 = models.ForeignKey(Player, related_name='%(class)s_p2', on_delete=models.PROTECT, null='True')
-    player3 = models.ForeignKey(Player, related_name='%(class)s_p3', on_delete=models.PROTECT, null='True')
-    player4 = models.ForeignKey(Player, related_name='%(class)s_p4', on_delete=models.PROTECT, null='True')
-    player5 = models.ForeignKey(Player, related_name='%(class)s_p5', on_delete=models.PROTECT, null='True')
-    player6 = models.ForeignKey(Player, related_name='%(class)s_p6', on_delete=models.PROTECT, null='True')
-    player7 = models.ForeignKey(Player, related_name='%(class)s_p7', on_delete=models.PROTECT, null='True')
-    player8 = models.ForeignKey(Player, related_name='%(class)s_p8', on_delete=models.PROTECT, null='True')
-    player9 = models.ForeignKey(Player, related_name='%(class)s_p9', on_delete=models.PROTECT, null='True')
+    player1  = models.ForeignKey(Player, related_name='%(class)s_p1',  on_delete=models.PROTECT)
+    player2  = models.ForeignKey(Player, related_name='%(class)s_p2',  on_delete=models.PROTECT, null='True')
+    player3  = models.ForeignKey(Player, related_name='%(class)s_p3',  on_delete=models.PROTECT, null='True')
+    player4  = models.ForeignKey(Player, related_name='%(class)s_p4',  on_delete=models.PROTECT, null='True')
+    player5  = models.ForeignKey(Player, related_name='%(class)s_p5',  on_delete=models.PROTECT, null='True')
+    player6  = models.ForeignKey(Player, related_name='%(class)s_p6',  on_delete=models.PROTECT, null='True')
+    player7  = models.ForeignKey(Player, related_name='%(class)s_p7',  on_delete=models.PROTECT, null='True')
+    player8  = models.ForeignKey(Player, related_name='%(class)s_p8',  on_delete=models.PROTECT, null='True')
+    player9  = models.ForeignKey(Player, related_name='%(class)s_p9',  on_delete=models.PROTECT, null='True')
     player10 = models.ForeignKey(Player, related_name='%(class)s_p10', on_delete=models.PROTECT, null='True')
     created_at = models.DateTimeField(default=timezone.now)
 
@@ -72,14 +77,11 @@ class PlayerSet(models.Model):
 
 class Game(models.Model):
     boardgame = models.ForeignKey(Boardgame, related_name='%(class)s_boardgame', on_delete=models.PROTECT)
-    players = models.ForeignKey(PlayerSet, related_name='%(class)s_playerset', on_delete=models.PROTECT, null=True)
+    player_set = models.ForeignKey(PlayerSet, related_name='%(class)s_playerset', on_delete=models.PROTECT, null=True)
     created_at = models.DateTimeField(default=timezone.now)
-    winner = models.ForeignKey(
-        Player, 
-        related_name='%(class)s_winner', 
-        # limit_choices_to={self.players.get_players_in_set(self)},
-        on_delete=models.PROTECT,
-        null=True,)
 
+    # Only set winner after creation
+    winner = models.ForeignKey(Player, related_name='%(class)s_winner', on_delete=models.PROTECT, null=True)
+    
     def __str__(self):
         return (self.boardgame + ", " + self.date + ", Winner:" + self.winner)

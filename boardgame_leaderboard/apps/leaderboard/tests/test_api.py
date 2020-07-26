@@ -6,7 +6,7 @@ from faker import Factory
 from .. import models
 
 
-""" URLS for tests """
+# URLS for tests
 BOARDGAME_URL = reverse('leaderboard:boardgame-list')
 PLAYER_URL = reverse('leaderboard:player-list')
 
