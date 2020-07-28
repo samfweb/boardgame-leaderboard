@@ -1,18 +1,19 @@
 from rest_framework import serializers
-from .models import Boardgame, Player, PlayerSet, Game
 from django.core.exceptions import ValidationError
-import logging
+from .models import Boardgame, Player, PlayerSet, Game
 
 
 class BoardgameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Boardgame
         fields = ('id', 'name', 'genre', 'max_players')
+
         
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ('id', 'name')
+        
 
 class PlayerSetSerializer(serializers.ModelSerializer):
     class Meta:
