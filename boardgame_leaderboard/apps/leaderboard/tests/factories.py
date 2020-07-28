@@ -6,7 +6,6 @@ from .. import models
 # Factory to use for creation
 faker = Factory.create()
 
-@factory.lazy_attribute
 class BoardgameFactory(factory.DjangoModelFactory):
     """
     Factory to create fake boardgames for testing
@@ -14,8 +13,9 @@ class BoardgameFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Boardgame
 
-    name = faker.word()
+    name = factory.Sequence((lambda n: 'Boardgame_{}'.format(n)))
     genre = models.get_random_genre()
+    created_at = factory.LazyAttribute(lambda _: faker.date())
 
 
 class PlayerFactory(factory.DjangoModelFactory):
@@ -25,7 +25,8 @@ class PlayerFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Player 
     
-    name = faker.name()
+    name = factory.LazyAttribute(lambda _: faker.name())
+    created_at = factory.LazyAttribute(lambda _: faker.date())
 
 
 class PlayerSetFactory(factory.DjangoModelFactory):
@@ -35,7 +36,7 @@ class PlayerSetFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.PlayerSet
 
-    name = faker.name() + "'s Player Set"
+    name = factory.Sequence((lambda n: 'Playerset_{}'.format(n)))
     
     # Use PlayerFactory to create players
     player1 = factory.SubFactory(PlayerFactory)
@@ -49,24 +50,20 @@ class PlayerSetFactory(factory.DjangoModelFactory):
     player9 = factory.SubFactory(PlayerFactory)
     player10 = factory.SubFactory(PlayerFactory)
     
-    created_at = faker.date()
-
+    created_at = factory.LazyAttribute(lambda _: faker.date())
 
 class GameFactory(factory.DjangoModelFactory):
     """
     Factory to create fake games for testing
+    Does not assign a winner.
     """
     class Meta:
         model = models.Game
 
-    # Use PlayerSetFactory to create a Player Set
-    player_set = factory.SubFactory(PlayerSetFactory) 
+    boardgame = factory.SubFactory(BoardgameFactory)
+    player_set = factory.SubFactory(PlayerSetFactory)
 
-    # Choose winner as first player
-    # winner = player_set.player1
-    print(player_set)
-
-    created_at = faker.date()
+    created_at = factory.LazyAttribute(lambda _: faker.date())
 
     
     
