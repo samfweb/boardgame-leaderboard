@@ -59,8 +59,6 @@ class GameSerializer(serializers.ModelSerializer):
         data = self.get_initial()
         player_ids = (PlayerSet.objects.get(id=data['player_set'])).get_players_in_set(keyword='ids')
         
-        print(repr(data['winner']))
-        print(repr(player_ids))
         if str(data['winner']) not in player_ids:
             raise serializers.ValidationError("Winner is not one of the game's players")
         return value
