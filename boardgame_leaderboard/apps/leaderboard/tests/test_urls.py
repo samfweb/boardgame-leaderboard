@@ -1,4 +1,3 @@
-
 # Reverse these for the url
 BOARDGAME_URL   = 'leaderboard:boardgame-list'
 PLAYER_URL      = 'leaderboard:player-list'
