@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Boardgame, Game, Player, PlayerSet
+from .models import Genre, Boardgame, Game, Player, PlayerGameData
 
-
+admin.site.register(Genre)
 admin.site.register(Boardgame)
 admin.site.register(Game)
 admin.site.register(Player)
-admin.site.register(PlayerSet)
+admin.site.register(PlayerGameData)
+
