@@ -113,21 +113,31 @@ class GameViewSet(viewsets.ModelViewSet):
 
 
     # /api/leaderboard/games/<pk/scores
-    @action(methods=['get', 'post'], detail=True, url_path='scores', url_name='game_scores')
+    @action(methods=['get', 'post', 'patch'], detail=True, url_path='scores', url_name='game_scores')
     def game_scores(self, request, pk=None):
         """
-        Queries the db for the scores of a game.
+        Returns the game's scores
         """
         # Gets the game being queried
         game = self.get_object()
 
-        if request.method == 'POST':
+        if request.method in ['POST', 'PATCH']:
             player_game_data = {
                 'game'      : game.id,
                 'player'    : request.data['player'],
                 'score'     : request.data['score']
             }
+            
+            # Ensure max players hasn't been exceeded
+            if request.method == 'POST':
+                cur_players = len(Player.objects.filter(game__id=game.id))
+                max_players = Boardgame.objects.get(pk=game.boardgame.id).max_players
 
+                if cur_players >= max_players:
+                    player_game_data['ERROR'] = 'Player limit exceeded for this boardgame'
+                    return Response(player_game_data, status=status.HTTP_304_NOT_MODIFIED)
+
+            # Serialize the data
             serializer = PlayerGameDataSerializer(data=player_game_data)
 
             if serializer.is_valid():
@@ -136,13 +146,14 @@ class GameViewSet(viewsets.ModelViewSet):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
         # Return GET by default
         else:
             player_game_datas = PlayerGameData.objects.filter(game__id=game.id).order_by('-score')
             return create_response(player_game_datas)
 
-    
+        
+
+               
 
 
 
