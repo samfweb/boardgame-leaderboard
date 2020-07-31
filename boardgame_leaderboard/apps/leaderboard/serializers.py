@@ -1,66 +1,58 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from .models import Boardgame, Player, PlayerSet, Game
+from .models import Genre, Boardgame, Player, Game, PlayerGameData
+
+
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ('id', 'name')
+
+    def __str__(self):
+        return self.name
 
 
 class BoardgameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Boardgame
-        fields = ('id', 'name', 'genre', 'max_players')
+        fields = ('id', 'name', 'max_players', 'genres')
+
+    # Have to define custom create and update once genres isn't read_only
+    # def create(self, validated_data):
+    #     genres_data = validated_data.pop('genres')
+    #     boardgame = Boardgame.objects.create(**validated_data)
+    #     for grenre_data in genres_data:
 
         
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ('id', 'name')
-        
-
-class PlayerSetSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlayerSet
-        fields = ( 
-            'id',
-            'name',
-            'player1', 
-            'player2',
-            'player3',
-            'player4',
-            'player5',
-            'player6',
-            'player7',
-            'player8',
-            'player9',
-            'player10',)
-
-    def validate(self, data):
-        """
-        Check that all players are unique
-        """
-        players = set()
-        for key, value in data.items():
-            if 'player' in key and value != None:
-                # Check if the player has already been encountered
-                if value in players:
-                    raise serializers.ValidationError("Player " + str(value) + " is already in the set.")
-                # If not, add it to the set
-                players.add(value)
-        return data
 
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'boardgame', 'player_set', 'winner',)
+        fields = ('id', 'boardgame')
 
 
-    def validate_winner(self, value):
-        """
-        Check that the winner is in the game's player_sets or is null
-        """
-        data = self.get_initial()
-        player_ids = (PlayerSet.objects.get(id=data['player_set'])).get_players_in_set(keyword='ids')
+class PlayerGameDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlayerGameData
+        fields = ('id', 'player', 'game', 'score')
+    
+
+
+# ------------------
+# Validation example:
+
+    # def validate_winner(self, value):
+    #     """
+    #     Check that the winner is in the game's players or is null
+    #     """
+    #     # data = self.get_initial()
+    #     # player_ids = (PlayerSet.objects.get(id=data['player_set'])).get_players_in_set(keyword='ids')
         
-        if str(data['winner']) not in player_ids:
-            raise serializers.ValidationError("Winner is not one of the game's players")
-        return value
-        # PlayerSet.objects.get(data['player_set']).get_players_in_set(keyword='ids')
+    #     # if str(data['winner']) not in player_ids:
+    #     #     raise serializers.ValidationError("Winner is not one of the game's players")
+    #     return value
