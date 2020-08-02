@@ -7,7 +7,7 @@ import random
 
 class Genre(models.Model):
 
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=20)
     created_at = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -17,7 +17,7 @@ class Boardgame(models.Model):
     
     name = models.CharField(max_length=100, unique=True)
     max_players = models.IntegerField(validators=[MinValueValidator(1)])
-    genres = models.ManyToManyField(Genre, related_name="genre_list")
+    genres = models.ManyToManyField(Genre, related_name="genre_list", default=None)
     created_at = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
         
