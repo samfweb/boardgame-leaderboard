@@ -13,15 +13,43 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class BoardgameSerializer(serializers.ModelSerializer):
+    genres = GenreSerializer(many=True)
+    
     class Meta:
         model = Boardgame
         fields = ('id', 'name', 'max_players', 'genres')
 
-    # Have to define custom create and update once genres isn't read_only
-    # def create(self, validated_data):
-    #     genres_data = validated_data.pop('genres')
-    #     boardgame = Boardgame.objects.create(**validated_data)
-    #     for grenre_data in genres_data:
+    # Have to define custom create and update due to nested serializer
+    def create(self, validated_data):
+        genres_data = validated_data.pop('genres')
+        print("-------------------------")
+        print(genres_data)
+        boardgame = Boardgame.objects.create(**validated_data)
+        
+        for genre in genres_data:
+            print(genre)
+            obj = Genre.objects.get(name=genre['name'])
+            #obj, created = Genre.objects.get_or_create(name=genre['name'])
+            print(obj)
+            boardgame.genres.add(obj)
+        return boardgame
+
+    def update(self, instance, validated_data):
+        print("Update Called-------------------------")
+        genres_data = validated_data.pop('genres')
+
+        # Update boardgame 
+        instance.name = validated_data.get('name', instance.name)
+        instance.max_players = validated_data.get('max_players', instance.max_players) 
+    
+        for genre in genres_data:
+            print(genre)
+            obj, created = Genre.objects.get_or_create(name=genre['name'])
+            print(obj)
+            instance.genres.add(obj)
+        
+        return instance
+
 
         
 class PlayerSerializer(serializers.ModelSerializer):
