@@ -8,7 +8,7 @@
 * [Usage](#usage)
 
 ## General Info 
-
+API documentation can be found [here](https://documenter.getpostman.com/view/12316899/T1LLDnJL?version=latest).
 
 ## Technologies
 The boardgame leaderboard API is built using [Django 3.0.8](https://docs.djangoproject.com/en/3.1/) and [Django Rest Framework 3.11.0](https://www.django-rest-framework.org/)
@@ -18,10 +18,10 @@ A list of all installed packages and dependencies can be found in `requirements.
 
 
 ## Setup
-### Clone repository
+### Cloning the repository
 Download or clone this repository using `git clone https://github.com/samfweb/boardgame-leaderboard.git`
 
-### Initalise new virtual environment
+### Initalising a new virtual environment
 Initalise a new virtual python environment with `python3 -m venv /path/to/new/virtual/environment`
 I would recommend navigating to the root directory of your project and using `python3 -m venv .`
 
@@ -47,10 +47,26 @@ With your venv active and in the project's root folder, run
 
 This will create the SQLite database.
 
+### Creating a superuser
+Create a superuser(admin) for the leaderboard with.
+
+`./manage.py createsuperuser`
+
+You'll be prompted to enter details such as username and password.
+
 ## Usage
 
 ### Running the server
-Spin up a local server using readme`./manage.py runserver`
+Spin up a local server with `./manage.py runserver`
 
 You should see the following:
-![server_success](https://imgur.com/nlzOfmH)
+![server_success](https://i.imgur.com/nlzOfmH.png)
+
+
+### Accessing the admin interface
+The admin interface can be found at  
+
+### Using the API
+If debug mode is enabled, you can interact with the API using Django's browesable interface.
+
+Full API documentation can be viewed [here](https://documenter.getpostman.com/view/12316899/T1LLDnJL?version=latest). 
