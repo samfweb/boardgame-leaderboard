@@ -1,0 +1,8 @@
+# A great guide on how to generate a django secret key can be found here:
+# https://humberto.io/blog/tldr-generate-django-secret-key/
+SECRET_KEY=(Django secret key)
+DEBUG=True
+DB_NAME=BOARDGAME_LEADERBOARD_DJANGO
+DB_USER=(db_username)
+DB_PASSWORD=(db_password))
+DB_HOST=127.0.0.1
