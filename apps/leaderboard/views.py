@@ -92,6 +92,20 @@ class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
+    # /api/leaderboard/players/<pk>/games
+    @action(methods=['get'], detail=True, url_path='games', url_name='player_games')
+    def player_games(self, request, pk=None):
+        """
+        Queries the db for the games of a player.
+        """
+        # Gets the game being queried
+        player = self.get_object()
+
+        # Queries the database for games that have been played by this player
+        games = Game.objects.filter(players__id=player.id)
+
+        return create_response(games)
+
 
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
@@ -99,7 +113,7 @@ class GameViewSet(viewsets.ModelViewSet):
 
     # /api/leaderboard/games/<pk>/players
     @action(methods=['get'], detail=True, url_path='players', url_name='game_players')
-    def get_players(self, request, pk=None):
+    def game_players(self, request, pk=None):
         """
         Queries the db for the players of a game.
         """
@@ -111,56 +125,25 @@ class GameViewSet(viewsets.ModelViewSet):
 
         return create_response(players)
 
-
     # /api/leaderboard/games/<pk/scores
-    @action(methods=['get', 'post', 'patch'], detail=True, url_path='scores', url_name='game_scores')
+    @action(methods=['get'], detail=True, url_path='scores', url_name='game_scores')
     def game_scores(self, request, pk=None):
         """
-        Returns the game's scores
+        Gets the scores for a game
         """
         # Gets the game being queried
         game = self.get_object()
 
-        if request.method in ['POST', 'PATCH']:
-            player_game_data = {
-                'game'      : game.id,
-                'player'    : request.data['player'],
-                'score'     : request.data['score']
-            }
-            
-            # Ensure max players hasn't been exceeded
-            if request.method == 'POST':
-                cur_players = len(Player.objects.filter(game__id=game.id))
-                max_players = Boardgame.objects.get(pk=game.boardgame.id).max_players
+        # Gets the scores in descending order
+        player_game_datas = PlayerGameData.objects.filter(game__id=game.id).order_by('-score')
 
-                if cur_players >= max_players:
-                    player_game_data['ERROR'] = 'Player limit exceeded for this boardgame'
-                    return Response(player_game_data, status=status.HTTP_304_NOT_MODIFIED)
-
-            # Serialize the data
-            serializer = PlayerGameDataSerializer(data=player_game_data)
-
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        # Return GET by default
-        else:
-            player_game_datas = PlayerGameData.objects.filter(game__id=game.id).order_by('-score')
-            return create_response(player_game_datas)
+        return create_response(player_game_datas)
 
         
-
-               
-
-
-
-# Shouldn't be able to view these properly
 class PlayerGameDataViewSet(viewsets.ModelViewSet):
     queryset = PlayerGameData.objects.all()
     serializer_class = PlayerGameDataSerializer
+        
 
     
     
